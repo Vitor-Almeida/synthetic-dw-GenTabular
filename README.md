@@ -5,3 +5,5 @@ Automated synthetic data generation for tabular Data Warehouses, designed for Bu
 
 Python 3.13
 pip install faker
+pip install factory_boy
+pip install python-dotenv

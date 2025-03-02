@@ -1,0 +1,1187 @@
+{
+    "DB":"Vemma",
+    "Descrição":"A empresa *VEMMA - Vendas de Misturas e Maturação Alcoólica* atua no setor de bebidas alcoólicas e comercializa whisky, vodka e outros destilados, cada um com diferentes marcas.",
+    "Schema":
+        {
+        "Pedido": {
+            "PedidoID": {
+            "Tipo": "int",
+            "Descrição": "Identificador único do pedido",
+            "Exemplos": [1001, 1002, 1003],
+            "Relacionamentos": null,
+            "TipoDeChave": "PK"
+            },
+            "NumeroPedido": {
+            "Tipo": "string",
+            "Descrição": "Número de referência do pedido para uso externo",
+            "Exemplos": ["PED-2025-0001", "PED-2025-0002"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ClienteID": {
+            "Tipo": "int",
+            "Descrição": "Identificador do cliente que realizou o pedido",
+            "Exemplos": [500, 501, 502],
+            "Relacionamentos": "Cliente.ClienteID",
+            "TipoDeChave": "FK"
+            },
+            "DataPedido": {
+            "Tipo": "datetime",
+            "Descrição": "Data e hora em que o pedido foi criado",
+            "Exemplos": ["2025-03-01T10:15:30", "2025-03-02T12:00:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DataEntregaPrevista": {
+            "Tipo": "datetime",
+            "Descrição": "Data prevista para entrega do pedido",
+            "Exemplos": ["2025-03-05T10:00:00", "2025-03-06T15:30:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "StatusPedido": {
+            "Tipo": "string",
+            "Descrição": "Status atual do pedido (ex: Em Processamento, Concluído, Cancelado)",
+            "Exemplos": ["Em Processamento", "Concluído", "Cancelado"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "CanalVenda": {
+            "Tipo": "string",
+            "Descrição": "Canal através do qual o pedido foi realizado (ex: Site, Telefone, Vendedor)",
+            "Exemplos": ["Site", "Telefone", "Vendedor"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "VendedorID": {
+            "Tipo": "int",
+            "Descrição": "Identificador do vendedor responsável pelo pedido",
+            "Exemplos": [101, 102, 103],
+            "Relacionamentos": null,
+            "TipoDeChave": "FK"
+            },
+            "TotalBruto": {
+            "Tipo": "decimal",
+            "Descrição": "Valor total bruto do pedido",
+            "Exemplos": [1500.50, 2000.75],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TotalDesconto": {
+            "Tipo": "decimal",
+            "Descrição": "Valor total dos descontos aplicados no pedido",
+            "Exemplos": [50.00, 75.25],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TotalImpostos": {
+            "Tipo": "decimal",
+            "Descrição": "Valor total dos impostos aplicados no pedido",
+            "Exemplos": [200.00, 300.50],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TotalLiquido": {
+            "Tipo": "decimal",
+            "Descrição": "Valor final líquido do pedido",
+            "Exemplos": [1250.50, 1625.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "FormaPagamento": {
+            "Tipo": "string",
+            "Descrição": "Forma de pagamento utilizada no pedido (ex: Cartão de Crédito, Boleto, Dinheiro)",
+            "Exemplos": ["Cartão de Crédito", "Boleto", "Dinheiro"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "CampanhaID": {
+            "Tipo": "int",
+            "Descrição": "Identificador da campanha associada ao pedido",
+            "Exemplos": [10, 11],
+            "Relacionamentos": "Campanha.CampanhaID",
+            "TipoDeChave": "FK"
+            },
+            "DataAprovacao": {
+            "Tipo": "datetime",
+            "Descrição": "Data e hora da aprovação do pedido",
+            "Exemplos": ["2025-03-01T11:00:00", "2025-03-02T13:00:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "UsuarioAprovacao": {
+            "Tipo": "int",
+            "Descrição": "Identificador do usuário que aprovou o pedido",
+            "Exemplos": [501, 502],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "PrioridadeEntrega": {
+            "Tipo": "string",
+            "Descrição": "Prioridade na entrega do pedido (ex: Alta, Normal, Baixa)",
+            "Exemplos": ["Alta", "Normal", "Baixa"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "EntregaID": {
+            "Tipo": "int",
+            "Descrição": "Identificador da entrega associada ao pedido",
+            "Exemplos": [3001, 3002],
+            "Relacionamentos": "Entrega.EntregaID",
+            "TipoDeChave": "FK"
+            }
+        },
+        "Pedido Linha": {
+            "PedidoLinhaID": {
+            "Tipo": "int",
+            "Descrição": "Identificador único da tabela Pedido Linha",
+            "Exemplos": [100, 101, 102],
+            "Relacionamentos": null,
+            "TipoDeChave": "PK"
+            },
+            "LinhaPedido": {
+                "Tipo": "int",
+                "Descrição": "Identificador da linha de um pedido",
+                "Exemplos": [1, 2, 3],
+                "Relacionamentos": null,
+                "TipoDeChave": null
+            },
+            "PedidoID": {
+            "Tipo": "int",
+            "Descrição": "Identificador do pedido ao qual a linha pertence",
+            "Exemplos": [1001, 1002],
+            "Relacionamentos": "Pedido.PedidoID",
+            "TipoDeChave": "FK"
+            },
+            "ProdutoID": {
+            "Tipo": "int",
+            "Descrição": "Identificador do produto",
+            "Exemplos": [200, 201],
+            "Relacionamentos": "Produto.ProdutoID",
+            "TipoDeChave": "FK"
+            },
+            "Quantidade": {
+            "Tipo": "int",
+            "Descrição": "Quantidade do produto na linha do pedido",
+            "Exemplos": [2, 5, 10],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "PrecoUnitario": {
+            "Tipo": "decimal",
+            "Descrição": "Preço unitário do produto",
+            "Exemplos": [50.00, 75.25],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorBruto": {
+            "Tipo": "decimal",
+            "Descrição": "Valor bruto da linha, calculado sem descontos e impostos",
+            "Exemplos": [100.00, 375.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorImpostos": {
+            "Tipo": "decimal",
+            "Descrição": "Valor dos impostos aplicados à linha",
+            "Exemplos": [10.00, 15.50],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorLiquido": {
+            "Tipo": "decimal",
+            "Descrição": "Valor líquido da linha, após descontos e impostos",
+            "Exemplos": [90.00, 360.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorFrete": {
+            "Tipo": "decimal",
+            "Descrição": "Valor do frete aplicado à linha do pedido",
+            "Exemplos": [5.00, 8.50],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorComissao": {
+            "Tipo": "decimal",
+            "Descrição": "Valor da comissão do vendedor para a linha do pedido",
+            "Exemplos": [2.50, 4.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorCusto": {
+            "Tipo": "decimal",
+            "Descrição": "Custo do produto para a empresa",
+            "Exemplos": [30.00, 45.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorCustoProducao": {
+            "Tipo": "decimal",
+            "Descrição": "Custo de produção do produto",
+            "Exemplos": [25.00, 40.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorDesconto": {
+            "Tipo": "decimal",
+            "Descrição": "Valor de desconto aplicado à linha do pedido",
+            "Exemplos": [5.00, 7.50],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "StatusItemPedido": {
+            "Tipo": "string",
+            "Descrição": "Status do item do pedido (ex: Ativo, Cancelado)",
+            "Exemplos": ["Ativo", "Cancelado"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DataEntregaPrevista": {
+            "Tipo": "datetime",
+            "Descrição": "Data prevista para entrega do item",
+            "Exemplos": ["2025-03-05T10:00:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TabelaPrecoID": {
+            "Tipo": "int",
+            "Descrição": "Identificador da tabela de preços utilizada",
+            "Exemplos": [1, 2],
+            "Relacionamentos": "TabelaPreco.TabelaPrecoID",
+            "TipoDeChave": "FK"
+            },
+            "PercentualComissaoVendedor": {
+            "Tipo": "decimal",
+            "Descrição": "Percentual de comissão do vendedor para o item",
+            "Exemplos": [0.05, 0.1],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            }
+        },
+        "Cliente": {
+            "ClienteID": {
+            "Tipo": "int",
+            "Descrição": "Identificador único do cliente",
+            "Exemplos": [500, 501, 502],
+            "Relacionamentos": null,
+            "TipoDeChave": "PK"
+            },
+            "CodigoCliente": {
+            "Tipo": "string",
+            "Descrição": "Código do cliente para identificação interna",
+            "Exemplos": ["CLI-001", "CLI-002"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "RazaoSocial": {
+            "Tipo": "string",
+            "Descrição": "Razão social do cliente",
+            "Exemplos": ["Empresa ABC", "Comercial XYZ"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "NomeFantasia": {
+            "Tipo": "string",
+            "Descrição": "Nome fantasia do cliente",
+            "Exemplos": ["ABC Store", "XYZ Comércio"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "CNPJ": {
+            "Tipo": "string",
+            "Descrição": "Cadastro Nacional da Pessoa Jurídica do cliente",
+            "Exemplos": ["00.000.000/0001-00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Latitude": {
+            "Tipo": "decimal",
+            "Descrição": "Latitude para localização do cliente",
+            "Exemplos": [-23.5505, -22.9083],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Longitude": {
+            "Tipo": "decimal",
+            "Descrição": "Longitude para localização do cliente",
+            "Exemplos": [-46.6333, -43.1964],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "InscricaoEstadual": {
+            "Tipo": "string",
+            "Descrição": "Inscrição estadual do cliente",
+            "Exemplos": ["123456789"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TipoCliente": {
+            "Tipo": "string",
+            "Descrição": "Tipo do cliente (ex: Pessoa Física, Pessoa Jurídica)",
+            "Exemplos": ["Pessoa Jurídica"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "SegmentoCliente": {
+            "Tipo": "string",
+            "Descrição": "Segmento de mercado do cliente",
+            "Exemplos": ["Varejo", "Atacado"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Bairro": {
+            "Tipo": "string",
+            "Descrição": "Bairro do endereço do cliente",
+            "Exemplos": ["Centro", "Industrial"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Cidade": {
+            "Tipo": "string",
+            "Descrição": "Cidade do cliente",
+            "Exemplos": ["São Paulo", "Rio de Janeiro"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Estado": {
+            "Tipo": "string",
+            "Descrição": "Estado do cliente",
+            "Exemplos": ["SP", "RJ"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DataCadastro": {
+            "Tipo": "datetime",
+            "Descrição": "Data de cadastro do cliente",
+            "Exemplos": ["2025-01-15T09:30:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "LimiteCredito": {
+            "Tipo": "decimal",
+            "Descrição": "Limite de crédito disponível para o cliente",
+            "Exemplos": [10000.00, 15000.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "StatusCredito": {
+            "Tipo": "string",
+            "Descrição": "Situação do crédito do cliente (ex: Aprovado, Suspenso)",
+            "Exemplos": ["Aprovado", "Suspenso"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "CondicaoPagamentoPadrao": {
+            "Tipo": "string",
+            "Descrição": "Condição de pagamento padrão para o cliente",
+            "Exemplos": ["30 dias", "45 dias"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "VendedorID": {
+            "Tipo": "int",
+            "Descrição": "Identificador do vendedor responsável pelo cliente",
+            "Exemplos": [101, 102],
+            "Relacionamentos": "Vendedor.VendedorID",
+            "TipoDeChave": "FK"
+            },
+            "RegiaoComercial": {
+            "Tipo": "string",
+            "Descrição": "Região comercial à qual o cliente pertence",
+            "Exemplos": ["Norte", "Sul"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "FrequenciaCompra": {
+            "Tipo": "string",
+            "Descrição": "Frequência de compras do cliente",
+            "Exemplos": ["Mensal", "Semanal"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "UltimaCompra": {
+            "Tipo": "datetime",
+            "Descrição": "Data da última compra realizada pelo cliente",
+            "Exemplos": ["2025-02-20T14:00:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorTicketMedio": {
+            "Tipo": "decimal",
+            "Descrição": "Valor médio dos pedidos do cliente",
+            "Exemplos": [250.00, 350.50],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ProgramaFidelidadeID": {
+            "Tipo": "int",
+            "Descrição": "Identificador do programa de fidelidade associado ao cliente",
+            "Exemplos": [5, 6],
+            "Relacionamentos": "ProgramaFidelidade.ProgramaFidelidadeID",
+            "TipoDeChave": "FK"
+            }
+        },
+        "Produto": {
+            "ProdutoID": {
+            "Tipo": "int",
+            "Descrição": "Identificador único do produto",
+            "Exemplos": [200, 201, 202],
+            "Relacionamentos": null,
+            "TipoDeChave": "PK"
+            },
+            "CodigoProduto": {
+            "Tipo": "string",
+            "Descrição": "Código de identificação do produto",
+            "Exemplos": ["PROD-001", "PROD-002"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DescricaoCurta": {
+            "Tipo": "string",
+            "Descrição": "Descrição resumida do produto",
+            "Exemplos": ["Refrigerante", "Suco Natural"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DescricaoCompleta": {
+            "Tipo": "string",
+            "Descrição": "Descrição detalhada do produto",
+            "Exemplos": ["Refrigerante sabor cola, 350ml", "Suco natural de laranja, 1L"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Marca": {
+            "Tipo": "string",
+            "Descrição": "Marca do produto",
+            "Exemplos": ["Coca-Cola", "Pepsi"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Categoria": {
+            "Tipo": "string",
+            "Descrição": "Categoria do produto",
+            "Exemplos": ["Bebidas"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Subcategoria": {
+            "Tipo": "string",
+            "Descrição": "Subcategoria do produto",
+            "Exemplos": ["Refrigerantes"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TipoBebida": {
+            "Tipo": "string",
+            "Descrição": "Tipo de bebida (se aplicável)",
+            "Exemplos": ["Refrigerante", "Suco"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TeorAlcoolico": {
+            "Tipo": "decimal",
+            "Descrição": "Percentual de álcool presente no produto",
+            "Exemplos": [0.0, 5.0],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "VolumeMl": {
+            "Tipo": "int",
+            "Descrição": "Volume do produto em mililitros",
+            "Exemplos": [350, 1000],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "FatorHL": {
+            "Tipo": "decimal",
+            "Descrição": "Fator para conversão de unidades",
+            "Exemplos": [1.0, 1.5],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "OrigemProduto": {
+            "Tipo": "string",
+            "Descrição": "Origem do produto (ex: Nacional, Importado)",
+            "Exemplos": ["Nacional", "Importado"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "AnoDeSafra": {
+            "Tipo": "int",
+            "Descrição": "Ano da safra do produto (se aplicável)",
+            "Exemplos": [2025, 2024],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TempoMaturacao": {
+            "Tipo": "string",
+            "Descrição": "Tempo de maturação do produto (se aplicável)",
+            "Exemplos": ["6 meses", "1 ano"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TipoEmbalagem": {
+            "Tipo": "string",
+            "Descrição": "Tipo de embalagem do produto",
+            "Exemplos": ["Garrafa", "Lata"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "PesoLiquido": {
+            "Tipo": "decimal",
+            "Descrição": "Peso líquido do produto",
+            "Exemplos": [0.5, 1.0],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "PesoBruto": {
+            "Tipo": "decimal",
+            "Descrição": "Peso bruto do produto",
+            "Exemplos": [0.6, 1.2],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Altura": {
+            "Tipo": "decimal",
+            "Descrição": "Altura da embalagem do produto",
+            "Exemplos": [10.5, 12.0],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Largura": {
+            "Tipo": "decimal",
+            "Descrição": "Largura da embalagem do produto",
+            "Exemplos": [5.0, 6.0],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Comprimento": {
+            "Tipo": "decimal",
+            "Descrição": "Comprimento da embalagem do produto",
+            "Exemplos": [20.0, 25.0],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "StatusProduto": {
+            "Tipo": "string",
+            "Descrição": "Status do produto (ex: Ativo, Inativo)",
+            "Exemplos": ["Ativo", "Inativo"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "FornecedorPrincipalID": {
+            "Tipo": "int",
+            "Descrição": "Identificador do fornecedor principal do produto",
+            "Exemplos": [300, 301],
+            "Relacionamentos": "Fornecedor.FornecedorID",
+            "TipoDeChave": "FK"
+            },
+            "AliquotaIPI": {
+            "Tipo": "decimal",
+            "Descrição": "Alíquota do IPI aplicada ao produto",
+            "Exemplos": [5.0, 10.0],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "AliquotaICMS": {
+            "Tipo": "decimal",
+            "Descrição": "Alíquota do ICMS aplicada ao produto",
+            "Exemplos": [18.0, 12.0],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DataCadastro": {
+            "Tipo": "datetime",
+            "Descrição": "Data de cadastro do produto",
+            "Exemplos": ["2025-01-10T08:00:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "FotoProduto": {
+            "Tipo": "string",
+            "Descrição": "URL ou caminho da imagem do produto",
+            "Exemplos": ["http://exemplo.com/imagem.jpg"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TempoValidade": {
+            "Tipo": "string",
+            "Descrição": "Prazo de validade do produto",
+            "Exemplos": ["12 meses", "24 meses"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            }
+        },
+        "Entrega": {
+            "EntregaID": {
+            "Tipo": "int",
+            "Descrição": "Identificador único da entrega",
+            "Exemplos": [3001, 3002],
+            "Relacionamentos": null,
+            "TipoDeChave": "PK"
+            },
+            "NumeroCarga": {
+            "Tipo": "string",
+            "Descrição": "Número da carga para identificação da entrega",
+            "Exemplos": ["CARGA-001", "CARGA-002"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DataProgramada": {
+            "Tipo": "datetime",
+            "Descrição": "Data programada para a entrega",
+            "Exemplos": ["2025-03-03T09:00:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DataEntrega": {
+            "Tipo": "datetime",
+            "Descrição": "Data real em que a entrega foi efetuada",
+            "Exemplos": ["2025-03-04T14:30:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "CodigoRastreamento": {
+            "Tipo": "string",
+            "Descrição": "Código de rastreamento da entrega",
+            "Exemplos": ["TRACK123456"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "StatusEntrega": {
+            "Tipo": "string",
+            "Descrição": "Status da entrega (Em Rota, Cancelado, Devolvido, Entregue, Em Aberto)",
+            "Exemplos": ["Em Rota", "Entregue", "Cancelado"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "VeiculoModelo": {
+            "Tipo": "string",
+            "Descrição": "Modelo do veículo utilizado para a entrega",
+            "Exemplos": ["BMW-004", "VW-002"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "MotoristaNome": {
+            "Tipo": "string",
+            "Descrição": "Nome do motorista responsável pela entrega",
+            "Exemplos": ["João Silva", "Maria Souza"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ObservacaoEntrega": {
+            "Tipo": "string",
+            "Descrição": "Observações sobre a entrega",
+            "Exemplos": ["Entrega no portão da fábrica"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TipoEntrega": {
+            "Tipo": "string",
+            "Descrição": "Tipo da entrega (ex: Expressa, Normal)",
+            "Exemplos": ["Expressa", "Normal"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "PesoTotalKg": {
+            "Tipo": "decimal",
+            "Descrição": "Peso total da carga em quilogramas",
+            "Exemplos": [500.0, 750.0],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "VolumeTotalM3": {
+            "Tipo": "decimal",
+            "Descrição": "Volume total da carga em metros cúbicos",
+            "Exemplos": [10.0, 15.5],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorFrete": {
+            "Tipo": "decimal",
+            "Descrição": "Valor do frete da entrega",
+            "Exemplos": [150.00, 200.50],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DataHorarioSaida": {
+            "Tipo": "datetime",
+            "Descrição": "Data e hora de saída para a entrega",
+            "Exemplos": ["2025-03-03T07:30:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "HorarioChegadaPrevisto": {
+            "Tipo": "datetime",
+            "Descrição": "Horário previsto para a chegada da entrega",
+            "Exemplos": ["2025-03-03T12:00:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "KmInicial": {
+            "Tipo": "decimal",
+            "Descrição": "Quilometragem inicial do veículo",
+            "Exemplos": [10000.0, 15000.0],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "KmFinal": {
+            "Tipo": "decimal",
+            "Descrição": "Quilometragem final do veículo",
+            "Exemplos": [10200.0, 15200.0],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TaxaEntrega": {
+            "Tipo": "decimal",
+            "Descrição": "Taxa adicional aplicada na entrega",
+            "Exemplos": [20.0, 25.0],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            }
+        },
+        "Compra": {
+            "CompraID": {
+            "Tipo": "int",
+            "Descrição": "Identificador único da compra",
+            "Exemplos": [4001, 4002],
+            "Relacionamentos": null,
+            "TipoDeChave": "PK"
+            },
+            "NumeroOrdemCompra": {
+            "Tipo": "string",
+            "Descrição": "Número da ordem de compra",
+            "Exemplos": ["OC-2025-001", "OC-2025-002"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "FornecedorID": {
+            "Tipo": "int",
+            "Descrição": "Identificador do fornecedor",
+            "Exemplos": [300, 301],
+            "Relacionamentos": "Fornecedor.FornecedorID",
+            "TipoDeChave": "FK"
+            },
+            "DataPedido": {
+            "Tipo": "datetime",
+            "Descrição": "Data em que a compra foi realizada",
+            "Exemplos": ["2025-02-25T10:00:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DataPrevisaoEntrega": {
+            "Tipo": "datetime",
+            "Descrição": "Data prevista para a entrega da compra",
+            "Exemplos": ["2025-02-28T15:00:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DataRecebido": {
+            "Tipo": "datetime",
+            "Descrição": "Data em que a compra foi recebida",
+            "Exemplos": ["2025-03-01T16:00:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "StatusCompra": {
+            "Tipo": "string",
+            "Descrição": "Status da compra (Pedido, Pendente, Parcial, Recebido)",
+            "Exemplos": ["Pedido", "Recebido"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "CondicaoPagamento": {
+            "Tipo": "string",
+            "Descrição": "Condição de pagamento para a compra",
+            "Exemplos": ["30 dias", "45 dias"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "CompradorID": {
+            "Tipo": "int",
+            "Descrição": "Identificador do comprador responsável pela compra",
+            "Exemplos": [201, 202],
+            "Relacionamentos": "Comprador.CompradorID",
+            "TipoDeChave": "FK"
+            },
+            "Quantidade": {
+            "Tipo": "int",
+            "Descrição": "Quantidade total de itens na compra",
+            "Exemplos": [100, 200],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorTotalBruto": {
+            "Tipo": "decimal",
+            "Descrição": "Valor total bruto da compra",
+            "Exemplos": [5000.00, 7500.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorTotalDescontos": {
+            "Tipo": "decimal",
+            "Descrição": "Valor total dos descontos aplicados na compra",
+            "Exemplos": [250.00, 350.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorTotalImpostos": {
+            "Tipo": "decimal",
+            "Descrição": "Valor total dos impostos aplicados na compra",
+            "Exemplos": [450.00, 600.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorTotalLiquido": {
+            "Tipo": "decimal",
+            "Descrição": "Valor total líquido da compra",
+            "Exemplos": [4300.00, 5800.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TipoFrete": {
+            "Tipo": "string",
+            "Descrição": "Tipo de frete utilizado na compra",
+            "Exemplos": ["CIF", "FOB"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorFrete": {
+            "Tipo": "decimal",
+            "Descrição": "Valor do frete da compra",
+            "Exemplos": [100.00, 150.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DataNotaFiscal": {
+            "Tipo": "datetime",
+            "Descrição": "Data de emissão da nota fiscal da compra",
+            "Exemplos": ["2025-02-26T11:00:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "CodigoRastreamento": {
+            "Tipo": "string",
+            "Descrição": "Código de rastreamento da compra",
+            "Exemplos": ["TRACKOC123"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            }
+        },
+        "Compra Linha": {
+            "CompraLinhaID": {
+            "Tipo": "int",
+            "Descrição": "Identificador único da linha da compra",
+            "Exemplos": [1, 2, 3],
+            "Relacionamentos": null,
+            "TipoDeChave": "PK"
+            },
+            "CompraID": {
+            "Tipo": "int",
+            "Descrição": "Identificador da compra à qual a linha pertence",
+            "Exemplos": [4001, 4002],
+            "Relacionamentos": "Compra.CompraID",
+            "TipoDeChave": "FK"
+            },
+            "ProdutoID": {
+            "Tipo": "int",
+            "Descrição": "Identificador do produto comprado",
+            "Exemplos": [200, 201],
+            "Relacionamentos": "Produto.ProdutoID",
+            "TipoDeChave": "FK"
+            },
+            "QuantidadeSolicitada": {
+            "Tipo": "int",
+            "Descrição": "Quantidade solicitada do produto",
+            "Exemplos": [10, 20],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "QuantidadeRecebida": {
+            "Tipo": "int",
+            "Descrição": "Quantidade efetivamente recebida",
+            "Exemplos": [10, 18],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "PrecoUnitario": {
+            "Tipo": "decimal",
+            "Descrição": "Preço unitário do produto na compra",
+            "Exemplos": [50.00, 75.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorDesconto": {
+            "Tipo": "decimal",
+            "Descrição": "Valor de desconto aplicado na linha da compra",
+            "Exemplos": [5.00, 7.50],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorBruto": {
+            "Tipo": "decimal",
+            "Descrição": "Valor bruto da linha da compra",
+            "Exemplos": [500.00, 1500.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorLiquido": {
+            "Tipo": "decimal",
+            "Descrição": "Valor líquido da linha da compra",
+            "Exemplos": [450.00, 1350.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorImpostos": {
+            "Tipo": "decimal",
+            "Descrição": "Valor dos impostos aplicados na linha da compra",
+            "Exemplos": [50.00, 75.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DataEntregaPrevista": {
+            "Tipo": "datetime",
+            "Descrição": "Data prevista para entrega dos produtos da linha da compra",
+            "Exemplos": ["2025-03-01T10:00:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "StatusItemCompra": {
+            "Tipo": "string",
+            "Descrição": "Status do item da compra (ex: Ativo, Cancelado)",
+            "Exemplos": ["Ativo", "Cancelado"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "LocalEstoqueDestino": {
+            "Tipo": "string",
+            "Descrição": "Local de destino no estoque para a compra",
+            "Exemplos": ["Armazém A", "Loja Central"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            }
+        },
+        "Fornecedor": {
+            "FornecedorID": {
+            "Tipo": "int",
+            "Descrição": "Identificador único do fornecedor",
+            "Exemplos": [300, 301, 302],
+            "Relacionamentos": null,
+            "TipoDeChave": "PK"
+            },
+            "CodigoFornecedor": {
+            "Tipo": "string",
+            "Descrição": "Código do fornecedor para identificação interna",
+            "Exemplos": ["FOR-001", "FOR-002"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "RazaoSocial": {
+            "Tipo": "string",
+            "Descrição": "Razão social do fornecedor",
+            "Exemplos": ["Fornecedor ABC", "Distribuidora XYZ"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "NomeFantasia": {
+            "Tipo": "string",
+            "Descrição": "Nome fantasia do fornecedor",
+            "Exemplos": ["ABC Fornece", "XYZ Distribui"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "CNPJ": {
+            "Tipo": "string",
+            "Descrição": "Cadastro Nacional da Pessoa Jurídica do fornecedor",
+            "Exemplos": ["00.111.222/0001-33"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Cidade": {
+            "Tipo": "string",
+            "Descrição": "Cidade onde o fornecedor está localizado",
+            "Exemplos": ["São Paulo", "Curitiba"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Estado": {
+            "Tipo": "string",
+            "Descrição": "Estado onde o fornecedor está localizado",
+            "Exemplos": ["SP", "PR"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "Pais": {
+            "Tipo": "string",
+            "Descrição": "País do fornecedor",
+            "Exemplos": ["Brasil"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ContatoPrincipal": {
+            "Tipo": "string",
+            "Descrição": "Nome do contato principal do fornecedor",
+            "Exemplos": ["Carlos", "Fernanda"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "EmailContato": {
+            "Tipo": "string",
+            "Descrição": "Email de contato do fornecedor",
+            "Exemplos": ["contato@abc.com", "vendas@xyz.com"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "TipoFornecedor": {
+            "Tipo": "string",
+            "Descrição": "Tipo de fornecedor (ex: Nacional, Internacional)",
+            "Exemplos": ["Nacional", "Internacional"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "SegmentoAtuacao": {
+            "Tipo": "string",
+            "Descrição": "Segmento de atuação do fornecedor",
+            "Exemplos": ["Alimentos", "Bebidas"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "DataCadastro": {
+            "Tipo": "datetime",
+            "Descrição": "Data de cadastro do fornecedor",
+            "Exemplos": ["2025-01-05T09:00:00"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "StatusFornecedor": {
+            "Tipo": "string",
+            "Descrição": "Status do fornecedor (ex: Ativo, Inativo)",
+            "Exemplos": ["Ativo", "Inativo"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "CondicaoPagamentoPadrao": {
+            "Tipo": "string",
+            "Descrição": "Condição de pagamento padrão para o fornecedor",
+            "Exemplos": ["30 dias", "60 dias"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "CategoriaABC": {
+            "Tipo": "string",
+            "Descrição": "Categoria ABC para avaliação do fornecedor",
+            "Exemplos": ["A", "B", "C"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "LimiteCompra": {
+            "Tipo": "decimal",
+            "Descrição": "Limite de compra permitido para o fornecedor",
+            "Exemplos": [100000.00, 150000.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "AvaliacaoHistorica": {
+            "Tipo": "string",
+            "Descrição": "Avaliação histórica do fornecedor",
+            "Exemplos": ["Excelente", "Bom"],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            }
+        },
+        "Inventário": {
+            "InventarioID": {
+            "Tipo": "int",
+            "Descrição": "Identificador único do inventário",
+            "Exemplos": [1, 2, 3],
+            "Relacionamentos": null,
+            "TipoDeChave": "PK"
+            },
+            "ProdutoID": {
+            "Tipo": "int",
+            "Descrição": "Identificador do produto no inventário",
+            "Exemplos": [200, 201],
+            "Relacionamentos": "Produto.ProdutoID",
+            "TipoDeChave": "FK"
+            },
+            "QuantidadeDisponivel": {
+            "Tipo": "int",
+            "Descrição": "Quantidade disponível em estoque",
+            "Exemplos": [100, 150],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "QuantidadeReservada": {
+            "Tipo": "int",
+            "Descrição": "Quantidade reservada para pedidos",
+            "Exemplos": [10, 15],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "QuantidadeEmTransito": {
+            "Tipo": "int",
+            "Descrição": "Quantidade em trânsito para o estoque",
+            "Exemplos": [20, 30],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "QuantidadeAvariadaDescarte": {
+            "Tipo": "int",
+            "Descrição": "Quantidade de produtos avariados ou descartados",
+            "Exemplos": [5, 2],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "QuantidadeEmProcesso": {
+            "Tipo": "int",
+            "Descrição": "Quantidade de produtos em processo de reposição",
+            "Exemplos": [8, 12],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "QuantidadeTotal": {
+            "Tipo": "int",
+            "Descrição": "Quantidade total de produtos no inventário",
+            "Exemplos": [123, 167],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "EstoqueMinimo": {
+            "Tipo": "int",
+            "Descrição": "Quantidade mínima de estoque recomendada",
+            "Exemplos": [50, 75],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "EstoqueMaximo": {
+            "Tipo": "int",
+            "Descrição": "Quantidade máxima de estoque recomendada",
+            "Exemplos": [200, 250],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "PontoPedido": {
+            "Tipo": "int",
+            "Descrição": "Quantidade no ponto de pedido para reposição",
+            "Exemplos": [60, 80],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorEstoqueCusto": {
+            "Tipo": "decimal",
+            "Descrição": "Valor do estoque baseado no custo dos produtos",
+            "Exemplos": [5000.00, 7500.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            },
+            "ValorEstoqueVenda": {
+            "Tipo": "decimal",
+            "Descrição": "Valor do estoque baseado no preço de venda dos produtos",
+            "Exemplos": [7000.00, 10500.00],
+            "Relacionamentos": null,
+            "TipoDeChave": null
+            }
+        }
+    }
+}
