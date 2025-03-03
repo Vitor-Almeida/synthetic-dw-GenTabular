@@ -1,7 +1,81 @@
 {
-    "DB":"Vemma",
-    "Descrição":"A empresa *VEMMA - Vendas de Misturas e Maturação Alcoólica* atua no setor de bebidas alcoólicas e comercializa whisky, vodka e outros destilados, cada um com diferentes marcas.",
-    "Schema":
+    "Nome":"Vemma",
+    "Descrição":"A empresa VEMMA, *Vendas de Misturas e Maturação Alcoólica* atua no setor de bebidas alcoólicas e comercializa whisky, vodka e outros destilados, cada um com diferentes marcas.",
+    "Tabelas": {
+        "Pedido": {
+            "Descricao": "Registra todas as vendas realizadas pela empresa, incluindo informações do cliente, valores e status do pedido.",
+            "Tipo": "Fato",
+            "PK": "PedidoID",
+            "FK": ["ClienteID", "VendedorID", "EntregaID", "CampanhaID"]
+        },
+        "PedidoLinha": {
+            "Descricao": "Detalha os itens de cada pedido, incluindo quantidades, preços, impostos e status do item.",
+            "Tipo": "Fato",
+            "PK": "PedidoLinhaID",
+            "FK": ["PedidoID", "ProdutoID", "TabelaPrecoID"]
+        },
+        "Cliente": {
+            "Descricao": "Contém informações cadastrais dos clientes, incluindo dados fiscais e histórico de compras.",
+            "Tipo": "Dimensão",
+            "PK": "ClienteID",
+            "FK": ["VendedorID", "ProgramaFidelidadeID"]
+        },
+        "Produto": {
+            "Descricao": "Tabela com os produtos comercializados pela empresa, incluindo características e informações fiscais.",
+            "Tipo": "Dimensão",
+            "PK": "ProdutoID",
+            "FK": ["FornecedorPrincipalID"]
+        },
+        "Entrega": {
+            "Descricao": "Registra o status e os detalhes logísticos das entregas realizadas para os clientes.",
+            "Tipo": "Fato",
+            "PK": "EntregaID",
+            "FK": null
+        },
+        "Compra": {
+            "Descricao": "Armazena as informações das compras feitas junto aos fornecedores, incluindo valores e status.",
+            "Tipo": "Fato",
+            "PK": "CompraID",
+            "FK": ["FornecedorID", "CompradorID"]
+        },
+        "CompraLinha": {
+            "Descricao": "Detalha os itens adquiridos em cada compra, incluindo quantidade e valores.",
+            "Tipo": "Fato",
+            "PK": "CompraLinhaID",
+            "FK": ["CompraID", "ProdutoID"]
+        },
+        "Fornecedor": {
+            "Descricao": "Registra os fornecedores e suas respectivas informações cadastrais.",
+            "Tipo": "Dimensão",
+            "PK": "FornecedorID",
+            "FK": null
+        },
+        "Inventario": {
+            "Descricao": "Armazena os níveis de estoque dos produtos, incluindo quantidades disponíveis e limites de estoque.",
+            "Tipo": "Fato",
+            "PK": "InventarioID",
+            "FK": ["ProdutoID"]
+        },
+        "InventarioHistorico": {
+            "Descricao": "Histórico do estoque, registrando movimentações ao longo do tempo.",
+            "Tipo": "Fato",
+            "PK": "InventarioID",
+            "FK": ["ProdutoID"]
+        },
+        "TabelaPreco": {
+            "Descricao": "Tabela de preços aplicáveis a diferentes clientes e produtos.",
+            "Tipo": "Dimensão",
+            "PK": "TabelaPrecoID",
+            "FK": ["ProdutoID", "ClienteID"]
+        },
+        "Vendedor": {
+            "Descricao": "Registra os vendedores e suas informações, incluindo metas e comissionamento.",
+            "Tipo": "Dimensão",
+            "PK": "VendedorID",
+            "FK": ["GerenciaID"]
+        }
+    },
+    "SchemaCompleto":
         {
         "Pedido": {
             "PedidoID": {
@@ -430,52 +504,54 @@
             "Relacionamentos": null,
             "TipoDeChave": "PK"
             },
-            "CodigoProduto": {
+            "NomeProduto": {
             "Tipo": "string",
-            "Descrição": "Código de identificação do produto",
-            "Exemplos": ["PROD-001", "PROD-002"],
+            "Descrição": "Descrição resumida do produto, geralmente é a marca + nome produto + embalagem",
+            "Exemplos": ["Ballantines Extra Crispy 1L", "Cisne Negro Premium 355 ml"],
             "Relacionamentos": null,
             "TipoDeChave": null
             },
-            "DescricaoCurta": {
+            "Cesta": {
             "Tipo": "string",
-            "Descrição": "Descrição resumida do produto",
-            "Exemplos": ["Refrigerante", "Suco Natural"],
-            "Relacionamentos": null,
-            "TipoDeChave": null
-            },
-            "DescricaoCompleta": {
-            "Tipo": "string",
-            "Descrição": "Descrição detalhada do produto",
-            "Exemplos": ["Refrigerante sabor cola, 350ml", "Suco natural de laranja, 1L"],
+            "Descrição": "Cesta do Produto",
+            "Exemplos": ["High-End", "Core", "Value"],
             "Relacionamentos": null,
             "TipoDeChave": null
             },
             "Marca": {
             "Tipo": "string",
             "Descrição": "Marca do produto",
-            "Exemplos": ["Coca-Cola", "Pepsi"],
+            "Exemplos": ["Coca-Cola", "Pepsi", "Black Swan"],
             "Relacionamentos": null,
             "TipoDeChave": null
             },
             "Categoria": {
             "Tipo": "string",
             "Descrição": "Categoria do produto",
-            "Exemplos": ["Bebidas"],
+            "Exemplos": ["Vodka", "Whisky", "Vinho", "Gin", "Rum", "Tequila", "Licor", "Conhaque", "Sake", "Cachaça"],
             "Relacionamentos": null,
             "TipoDeChave": null
             },
             "Subcategoria": {
             "Tipo": "string",
             "Descrição": "Subcategoria do produto",
-            "Exemplos": ["Refrigerantes"],
+            "Exemplos": ["Vodka Pura", "Vodka Saborizada", "Vodka Premium", "Vodka Orgânica",
+                "Whisky Single Malt", "Whisky Blended", "Whisky Bourbon", "Whisky Rye",
+                "Vinho Tinto Seco", "Vinho Branco Suave", "Vinho Rosé", "Vinho Espumante",
+                "Gin London Dry", "Gin Botânico", "Gin Floral", "Gin Cítrico",
+                "Rum Branco", "Rum Envelhecido", "Rum Escuro", "Rum Aromatizado",
+                "Tequila Silver", "Tequila Reposado", "Tequila Añejo", "Tequila Extra Añejo",
+                "Licor de Café", "Licor de Frutas", "Licor de Ervas", "Licor Cremoso",
+                "Conhaque VS", "Conhaque VSOP", "Conhaque XO", "Conhaque Extra Old",
+                "Sake Junmai", "Sake Honjozo", "Sake Nigori", "Sake Daiginjo",
+                "Cachaça Branca", "Cachaça Envelhecida", "Cachaça Artesanal", "Cachaça Premium"],
             "Relacionamentos": null,
             "TipoDeChave": null
             },
             "TipoBebida": {
             "Tipo": "string",
-            "Descrição": "Tipo de bebida (se aplicável)",
-            "Exemplos": ["Refrigerante", "Suco"],
+            "Descrição": "Tipo de bebida",
+            "Exemplos": ["Destilada", "Fermentada", "Licorosa", "Coquetel"],
             "Relacionamentos": null,
             "TipoDeChave": null
             },
@@ -493,13 +569,6 @@
             "Relacionamentos": null,
             "TipoDeChave": null
             },
-            "FatorHL": {
-            "Tipo": "decimal",
-            "Descrição": "Fator para conversão de unidades",
-            "Exemplos": [1.0, 1.5],
-            "Relacionamentos": null,
-            "TipoDeChave": null
-            },
             "OrigemProduto": {
             "Tipo": "string",
             "Descrição": "Origem do produto (ex: Nacional, Importado)",
@@ -507,17 +576,10 @@
             "Relacionamentos": null,
             "TipoDeChave": null
             },
-            "AnoDeSafra": {
-            "Tipo": "int",
-            "Descrição": "Ano da safra do produto (se aplicável)",
-            "Exemplos": [2025, 2024],
-            "Relacionamentos": null,
-            "TipoDeChave": null
-            },
-            "TempoMaturacao": {
-            "Tipo": "string",
-            "Descrição": "Tempo de maturação do produto (se aplicável)",
-            "Exemplos": ["6 meses", "1 ano"],
+            "FatorHL": {
+            "Tipo": "decimal",
+            "Descrição": "Fator para conversão de unidades",
+            "Exemplos": [1.0, 1.5],
             "Relacionamentos": null,
             "TipoDeChave": null
             },
@@ -528,38 +590,10 @@
             "Relacionamentos": null,
             "TipoDeChave": null
             },
-            "PesoLiquido": {
-            "Tipo": "decimal",
-            "Descrição": "Peso líquido do produto",
-            "Exemplos": [0.5, 1.0],
-            "Relacionamentos": null,
-            "TipoDeChave": null
-            },
-            "PesoBruto": {
-            "Tipo": "decimal",
-            "Descrição": "Peso bruto do produto",
-            "Exemplos": [0.6, 1.2],
-            "Relacionamentos": null,
-            "TipoDeChave": null
-            },
-            "Altura": {
-            "Tipo": "decimal",
-            "Descrição": "Altura da embalagem do produto",
-            "Exemplos": [10.5, 12.0],
-            "Relacionamentos": null,
-            "TipoDeChave": null
-            },
-            "Largura": {
-            "Tipo": "decimal",
-            "Descrição": "Largura da embalagem do produto",
-            "Exemplos": [5.0, 6.0],
-            "Relacionamentos": null,
-            "TipoDeChave": null
-            },
-            "Comprimento": {
-            "Tipo": "decimal",
-            "Descrição": "Comprimento da embalagem do produto",
-            "Exemplos": [20.0, 25.0],
+            "Embalagem": {
+            "Tipo": "string",
+            "Descrição": "Embalagem do produto",
+            "Exemplos": ["Lata 350ml", "Garrafa 600ml", "Garrafa 1L", "Lata 473ml","Garrafa de Alumínio 473ml","Barril Keg 5L", "Long Neck 355ml"],
             "Relacionamentos": null,
             "TipoDeChave": null
             },
@@ -576,20 +610,6 @@
             "Exemplos": [300, 301],
             "Relacionamentos": "Fornecedor.FornecedorID",
             "TipoDeChave": "FK"
-            },
-            "AliquotaIPI": {
-            "Tipo": "decimal",
-            "Descrição": "Alíquota do IPI aplicada ao produto",
-            "Exemplos": [5.0, 10.0],
-            "Relacionamentos": null,
-            "TipoDeChave": null
-            },
-            "AliquotaICMS": {
-            "Tipo": "decimal",
-            "Descrição": "Alíquota do ICMS aplicada ao produto",
-            "Exemplos": [18.0, 12.0],
-            "Relacionamentos": null,
-            "TipoDeChave": null
             },
             "DataCadastro": {
             "Tipo": "datetime",

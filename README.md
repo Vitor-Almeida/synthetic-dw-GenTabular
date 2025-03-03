@@ -7,3 +7,4 @@ Python 3.13
 pip install faker
 pip install factory_boy
 pip install python-dotenv
+pip install openai
