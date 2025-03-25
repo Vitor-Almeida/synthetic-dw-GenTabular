@@ -502,35 +502,54 @@
             "Descrição": "Identificador único do produto",
             "Exemplos": [200, 201, 202],
             "Relacionamentos": null,
-            "TipoDeChave": "PK"
+            "TipoDeChave": "PK",
+            "TipoGen": "Sequêncial",
+            "GenGrupo": null
             },
-            "NomeProduto": {
+            "NomeProdutoCurto": {
+            "Tipo": "string",
+            "Descrição": "Caractéristicas aleátorias de um produto",
+            "Exemplos": ["Ultra Gelado","Super Refrescante","Extra Suave","Premium Seleta","Mega Puro","Super Sabor","Extra Aromático","Top Qualidade"],
+            "Relacionamentos": null,
+            "TipoDeChave": null,
+            "TipoGen": "IA",
+            "GenGrupo": null
+            },
+            "NomeProdutoCompleto": {
             "Tipo": "string",
             "Descrição": "Descrição resumida do produto, geralmente é a marca + nome produto + embalagem",
             "Exemplos": ["Ballantines Extra Crispy 1L", "Cisne Negro Premium 355 ml"],
             "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "Calculado",
+            "GenGrupo": null
             },
             "Cesta": {
             "Tipo": "string",
             "Descrição": "Cesta do Produto",
             "Exemplos": ["High-End", "Core", "Value"],
             "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "IA",
+            "GenGrupo": 1
             },
             "Marca": {
             "Tipo": "string",
             "Descrição": "Marca do produto",
             "Exemplos": ["Coca-Cola", "Pepsi", "Black Swan"],
             "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "IA",
+            "GenGrupo": 1
             },
             "Categoria": {
             "Tipo": "string",
             "Descrição": "Categoria do produto",
             "Exemplos": ["Vodka", "Whisky", "Vinho", "Gin", "Rum", "Tequila", "Licor", "Conhaque", "Sake", "Cachaça"],
             "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "IA",
+            "GenGrupo": 1
             },
             "Subcategoria": {
             "Tipo": "string",
@@ -546,91 +565,99 @@
                 "Sake Junmai", "Sake Honjozo", "Sake Nigori", "Sake Daiginjo",
                 "Cachaça Branca", "Cachaça Envelhecida", "Cachaça Artesanal", "Cachaça Premium"],
             "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "IA",
+            "GenGrupo": 1
             },
             "TipoBebida": {
             "Tipo": "string",
             "Descrição": "Tipo de bebida",
             "Exemplos": ["Destilada", "Fermentada", "Licorosa", "Coquetel"],
             "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "IA",
+            "GenGrupo": 1
             },
             "TeorAlcoolico": {
             "Tipo": "decimal",
             "Descrição": "Percentual de álcool presente no produto",
             "Exemplos": [0.0, 5.0],
             "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "IA",
+            "GenGrupo": 1
             },
             "VolumeMl": {
             "Tipo": "int",
             "Descrição": "Volume do produto em mililitros",
             "Exemplos": [350, 1000],
             "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "IA",
+            "GenGrupo": 2
             },
             "OrigemProduto": {
             "Tipo": "string",
             "Descrição": "Origem do produto (ex: Nacional, Importado)",
             "Exemplos": ["Nacional", "Importado"],
             "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "IA",
+            "GenGrupo": 1
             },
             "FatorHL": {
             "Tipo": "decimal",
             "Descrição": "Fator para conversão de unidades",
             "Exemplos": [1.0, 1.5],
             "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "Calculado",
+            "GenGrupo": null
             },
             "TipoEmbalagem": {
             "Tipo": "string",
             "Descrição": "Tipo de embalagem do produto",
             "Exemplos": ["Garrafa", "Lata"],
             "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "IA",
+            "GenGrupo": 2
             },
             "Embalagem": {
             "Tipo": "string",
             "Descrição": "Embalagem do produto",
             "Exemplos": ["Lata 350ml", "Garrafa 600ml", "Garrafa 1L", "Lata 473ml","Garrafa de Alumínio 473ml","Barril Keg 5L", "Long Neck 355ml"],
             "Relacionamentos": null,
-            "TipoDeChave": null
-            },
-            "StatusProduto": {
-            "Tipo": "string",
-            "Descrição": "Status do produto (ex: Ativo, Inativo)",
-            "Exemplos": ["Ativo", "Inativo"],
-            "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "IA",
+            "GenGrupo": 2
             },
             "FornecedorPrincipalID": {
             "Tipo": "int",
             "Descrição": "Identificador do fornecedor principal do produto",
             "Exemplos": [300, 301],
             "Relacionamentos": "Fornecedor.FornecedorID",
-            "TipoDeChave": "FK"
+            "TipoDeChave": "FK",
+            "TipoGen": "Sequêncial",
+            "GenGrupo": null
             },
             "DataCadastro": {
             "Tipo": "datetime",
             "Descrição": "Data de cadastro do produto",
             "Exemplos": ["2025-01-10T08:00:00"],
             "Relacionamentos": null,
-            "TipoDeChave": null
-            },
-            "FotoProduto": {
-            "Tipo": "string",
-            "Descrição": "URL ou caminho da imagem do produto",
-            "Exemplos": ["http://exemplo.com/imagem.jpg"],
-            "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "Aleatório",
+            "GenGrupo": null
             },
             "TempoValidade": {
             "Tipo": "string",
             "Descrição": "Prazo de validade do produto",
             "Exemplos": ["12 meses", "24 meses"],
             "Relacionamentos": null,
-            "TipoDeChave": null
+            "TipoDeChave": null,
+            "TipoGen": "Aleatório",
+            "GenGrupo": null
             }
         },
         "Entrega": {
