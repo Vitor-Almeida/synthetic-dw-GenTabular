@@ -5,7 +5,7 @@ import json
 
 fake = Faker()
 
-with open("data/vemma/schema.json", "r", encoding="utf-8") as file:
+with open("data/vemma/schema_processado.json", "r", encoding="utf-8") as file:
     schema = json.load(file)["SchemaCompleto"]["Produto"]
 
 def pick_weighted_random_element(dynamic_list, fixed_weights=None):

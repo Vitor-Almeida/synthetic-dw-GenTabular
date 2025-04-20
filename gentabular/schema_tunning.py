@@ -6,7 +6,7 @@ import os
 load_dotenv(".env.local")
 client = OpenAI(api_key=os.getenv("API_KEY"))
 
-def generate_examples_openai(fields, n_examples=5):
+def generate_examples_openai(fields, db_context, n_examples=5):
     """
     Generates examples for a set of fields using OpenAI ChatCompletion.
     
@@ -21,37 +21,42 @@ def generate_examples_openai(fields, n_examples=5):
         }
     """
 
-    # Build a prompt (or system/user messages) describing what you want. 
-    # This example tries to generate a few short examples per field:
     field_descriptions = []
     for f in fields:
         desc = (
             f"Field name: {f['name']}\n"
             f"Type: {f['details'].get('Tipo')}\n"
             f"Description: {f['details'].get('Descrição')}\n"
+            f"Examples: {f['details'].get('Exemplos')}\n"
+
         )
         field_descriptions.append(desc)
     
-    prompt_text = (
+    system_prompt = (
         "You are a data generation assistant. "
-        "Generate multiple short example values for each field specified below. "
-        "Ensure any fields that depend on each other remain logically consistent. "
-        "For example, if one field is 'Category' denoting a type of drink, the 'Subcategory' must match that type—"
-        "yet feel free to invent unusual or whimsical categories and subcategories. "
-        "Your only requirement is to keep related fields aligned with one another. "
-        "Finally, return everything in valid JSON format, with each field name as the key and an array "
-        f"of {n_examples} example values as the value.\n\n"
+        "You are generating a Data Warehouse for a company. "
+        f"The company context is: {db_context}. "
+        "The user will request generation of fields to be used in a table in the DW. "
+        "Ensure that any fields with logical dependencies remain consistent. "
+        "For instance, if one field is 'Category' denoting a type of drink, "
+        "'Subcategory' must be a logically subcategory of that category. "
+        "Your requirement is to maintain alignment among all related fields and use the Description field that the user will supply to you to stear your data generation. "
+        "If the user supply you some examples, use them as a starting point, but don't simply copy them."
+        "Finally, return everything in valid JSON format, with each field name as the key and an array of values."
+    )
+
+    prompt_text = (
+        f"Please, generate exactly {n_examples} values for each field specified below. "
         + "\n".join(field_descriptions)
     )
 
-    #arrumar aqui, o system_prompt tem q ter alguma coisa, falar sobre a empresa, e a tarefa em si.
-
+    #ver aqui como forçar retorno em json
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
             {
                 "role": "system",
-                "content": "" #system_prompt
+                "content": system_prompt
             },
             {
                 "role": "user",
@@ -70,7 +75,8 @@ def generate_examples_openai(fields, n_examples=5):
     # In an ideal scenario, we expect valid JSON. 
     # You might want to handle JSON parsing errors, or do sanity checks.
     try:
-        results = json.loads(ai_message)
+        json_str = ai_message.replace("```json", "").replace("```", "").strip()
+        results = json.loads(json_str)
     except json.JSONDecodeError:
         # If the model doesn't return proper JSON, handle that here.
         # For now, just return an empty dict or fallback.
@@ -81,7 +87,7 @@ def generate_examples_openai(fields, n_examples=5):
     return results
 
 
-def process_schema(schema, n_examples=5):
+def process_schema(schema, db_context, n_examples=5):
     """
     Processes the dictionary 'schema' by identifying fields with TipoGen=IA,
     grouping them by GenGrupo, then calling 'generate_examples_openai' for each group
@@ -112,7 +118,7 @@ def process_schema(schema, n_examples=5):
         # 3. For each group, call the function to generate examples
         for group_identifier, group_fields in groups.items():
             # Generate the examples for these fields in one request
-            generation_results = generate_examples_openai(group_fields, n_examples=n_examples)
+            generation_results = generate_examples_openai(group_fields, db_context, n_examples=n_examples)
 
             # 4. Update the original attributes in the schema with the generated examples
             for f in group_fields:
@@ -133,9 +139,10 @@ if __name__ == "__main__":
 
     # 'data' should have something like { "SchemaCompleto": { ... } }
     full_schema = data.get("SchemaCompleto", {})
+    db_context = data.get("Descrição","")
 
     # Process the schema to generate examples
-    updated_schema = process_schema(full_schema, n_examples=5)
+    updated_schema = process_schema(full_schema, db_context, n_examples=5)
 
     # Insert the updated schema back into your main dictionary
     data["SchemaCompleto"] = updated_schema
